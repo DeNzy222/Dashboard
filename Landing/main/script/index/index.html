@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="main.css" />
+    <title>title</title>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        id="progress-bar"
+        style="
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 0%;
+          height: 4px;
+          background-color: #007bff;
+          z-index: 9999;
+          transition: width 0.2s ease;
+        "
+      ></div>
+      <div id="loader-wrapper" style="cursor: none !important;">
+        <div id="loader-wrapper">
+          <canvas id="neon-canvas"></canvas>
+          <div class="main_template">
+            <div class="template-container">
+              <div class="align_image">
+                <img
+                src="images/Logo.svg"
+                alt="Template Header"
+                class="neon-template-img"
+              />
+              </div>
+            </div>
+          </div>
+          <!-- <svg class="neon-svg" viewBox="0 0 200 200">
+            <defs>
+              <filter
+                id="neon-glow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feGaussianBlur stdDeviation="6" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <circle class="bg-circle" cx="100" cy="100" r="85"></circle>
+            <circle
+              class="stroke-circle"
+              cx="100"
+              cy="100"
+              r="85"
+              filter="url(#neon-glow)"
+            ></circle>
+          </svg> -->
+          <!-- <div class="neon-text">LOADING</div> -->
+        </div>
+      </div>
+      <div class="main_containment">
+        <div class="sidebar">
+          <div class="links">
+            <div
+              class="main_logo"
+              style="
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1.3rem;
+              "
+            >
+              <img src="images/Logo.svg" alt="" />
+            </div>
+            <a class="button_link" href="#"
+              ><div class="image"><img src="images/Dashboard.svg" /></div><div class="line"></div>
+              Dashboard</a
+            >
+            <a class="button_link" href="#"
+              ><div class="image"><img src="images/Car.svg" /></div>
+              Drivers</a
+            >
+            <a class="button_link" href="#"
+              ><div class="image"><img src="images/Booking.svg" /></div>
+              Bookings</a
+            >
+            <a class="button_link" href="#"
+              ><div class="image"><img src="images/Bell.svg" /></div>
+              Notifications</a
+            >
+            <a class="button_link" href="#"
+              ><div class="image"><img src="images/Settings.svg" /></div>
+              Settings</a
+            >
+            <div class="bottom_line"></div>
+            <div class="report_section">
+              <div class="title_report">Report</div>
+              <div class="links_report">
+                <div class="link_report_button">
+                  <a href="#"
+                    ><div class="im_rep">
+                      <img src="images/Vector.svg" alt="" />
+                    </div>
+                    Payment Details</a
+                  >
+                </div>
+                <div class="link_report_button">
+                  <a href="#"
+                    ><div class="im_rep">
+                      <img src="images/1.svg" alt="" />
+                    </div>
+                    Transactions</a
+                  >
+                </div>
+                <div class="link_report_button">
+                  <a href="#"
+                    ><div class="im_rep">
+                      <img src="images/Group 3.svg" alt="" />
+                    </div>
+                    Car Report</a
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="logout_button">
+              <div class="lg_bt">
+                <div class="im_logout">
+                  <a class="im_log" href="#" style="font-size: 20px">
+                    <img src="images/Logout (1).svg" alt="LogOut" />
+                    Logout
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="statistics">
+          <div
+            class="fl_main_card"
+            style="display: flex; flex-direction: column-reverse; gap: 5px"
+          >
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Hire vs Cancel</h2>
+                <span class="card-badge">Today</span>
+              </div>
+              <div class="chart-container">
+                <svg
+                  width="192"
+                  height="192"
+                  viewBox="0 0 42 42"
+                  class="donut-chart"
+                >
+                  <circle
+                    class="donut-hole"
+                    cx="21"
+                    cy="21"
+                    r="15.915"
+                    fill="transparent"
+                  ></circle>
+                  <circle
+                    id="segment-0"
+                    class="donut-segment color-blue"
+                    cx="21"
+                    cy="21"
+                    r="15.915"
+                    stroke-dasharray="54 46"
+                    stroke-dashoffset="125"
+                  ></circle>
+                  <circle
+                    id="segment-2"
+                    class="donut-segment color-red"
+                    cx="21"
+                    cy="21"
+                    r="15.915"
+                    stroke-dasharray="26 74"
+                    stroke-dashoffset="-29"
+                  ></circle>
+                  <circle
+                    id="segment-1"
+                    class="donut-segment color-green"
+                    cx="21"
+                    cy="21"
+                    r="15.915"
+                    stroke-dasharray="20 80"
+                    stroke-dashoffset="-55"
+                  ></circle>
+                </svg>
+              </div>
+              <!-- Interactive Legend Rows -->
+              <div class="legend-list">
+                <div
+                  onmouseenter="setChartActive(0)"
+                  onmouseleave="clearChartActive(0)"
+                  class="legend-item hired-row"
+                >
+                  <div class="legend-left">
+                    <span class="dot color-blue"></span>
+                    <span class="label-text">Total Hired</span>
+                  </div>
+                  <div class="value-container">
+                    <span>54%</span>
+                    <span class="arrow-up">↑</span>
+                  </div>
+                </div>
+                <!-- Total Canceled (Segment 1) -->
+                <div
+                  onmouseenter="setChartActive(1)"
+                  onmouseleave="clearChartActive(1)"
+                  class="legend-item canceled-row"
+                >
+                  <div class="legend-left">
+                    <span class="dot color-green"></span>
+                    <span class="label-text">Total Canceled</span>
+                  </div>
+                  <div class="value-container">
+                    <span>20%</span>
+                    <span class="arrow-up">↑</span>
+                  </div>
+                </div>
+                <!-- Total Pending (Segment 2) -->
+                <div
+                  onmouseenter="setChartActive(2)"
+                  onmouseleave="clearChartActive(2)"
+                  class="legend-item pending-row"
+                >
+                  <div class="legend-left">
+                    <span class="dot color-red"></span>
+                    <span class="label-text">Total Pending</span>
+                  </div>
+                  <div class="value-container">
+                    <span>26%</span>
+                    <span class="arrow-down">↓</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cards_main">
+              <div class="stats-container" style="gap: 5px">
+                <!-- Section Header -->
+                <div class="stats-header">
+                  <h1 class="stats-main-title">Today's Statistics</h1>
+                  <p class="stats-subtitle">Tue, 14 Nov, 2022, 11:30 AM</p>
+                </div>
+                <!-- CARD 1: Income Structure -->
+                <div class="interactive-card">
+                  <div class="card-glow"></div>
+                  <div class="card-inner">
+                    <div class="card-top-row">
+                      <h2 class="card-label">Income</h2>
+                      <span class="badge-today">Today</span>
+                    </div>
+                    <div class="metric-block">
+                      <span class="primary-amount">$ 9460.00</span>
+                      <span class="trend-badge trend-down">↓ 1.5%</span>
+                    </div>
+                    <p class="comparison-note">Compared to $9940 yesterday</p>
+                    <div class="historical-row">
+                      <span class="historical-label">Last week Income</span>
+                      <span class="historical-value">$25658.00</span>
+                    </div>
+                  </div>
+                </div>
+                <!-- CARD 2: Expenses Structure -->
+                <div class="interactive-card">
+                  <div class="card-glow"></div>
+                  <div class="card-inner">
+                    <div class="card-top-row">
+                      <h2 class="card-label">Expenses</h2>
+                      <span class="badge-today">Today</span>
+                    </div>
+                    <div class="metric-block">
+                      <span class="primary-amount">$ 5660.00</span>
+                      <span class="trend-badge trend-up">↑ 2.5%</span>
+                    </div>
+                    <p class="comparison-note">Compared to $5240 yesterday</p>
+                    <div class="historical-row">
+                      <span class="historical-label">Last week expenses</span>
+                      <span class="historical-value">$22658.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="main_dashboard_section">
+          <div class="graph-card">
+            <div class="graph-top-bar">
+              <div class="meta-group-left">
+                <h2 class="widget-heading">Earning Summary</h2>
+                <span class="timeline-dropdown">Mar 2022 - Oct 2022 ∨</span>
+              </div>
+              <div class="meta-group-right">
+                <div class="key-indicator-row">
+                  <span class="axis-dot axis-dot-current"></span> Last 6 months
+                </div>
+                <div class="key-indicator-row">
+                  <span class="axis-dot axis-dot-previous"></span> Same period
+                  last year
+                </div>
+              </div>
+            </div>
+            <!-- Canvas Container -->
+            <div class="canvas-render-zone">
+              <canvas id="summaryCanvas" width="2000" height="280"></canvas>
+            </div>
+          </div>
+          <div class="filt_container">
+            <div class="main_sec_cont_filt">
+              <div class="status-card" style="width: auto">
+                <!-- Header Controls Panel -->
+                <div class="card-header">
+                  <h2 class="card-title">Live Car Status</h2>
+                  <div class="filter-btn-wrapper">
+                    <button class="filter-trigger" id="filterBtn">
+                      <svg class="filter-icon" viewBox="0 0 24 24">
+                        <polygon
+                          points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"
+                        />
+                      </svg>
+                      Filter
+                    </button>
+                    <!-- Popup Dropdown Options -->
+                    <div class="filter-menu" id="filterMenu">
+                      <div class="filter-option" data-status="all">
+                        All Statuses
+                      </div>
+                      <div class="filter-option" data-status="completed">
+                        Completed
+                      </div>
+                      <div class="filter-option" data-status="pending">
+                        Pending
+                      </div>
+                      <div class="filter-option" data-status="inroute">
+                        In route
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Telemetry Data Table Frame -->
+                <table class="status-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 8%">No.</th>
+                      <th style="width: 16%">Car no.</th>
+                      <th style="width: 32%">Driver</th>
+                      <th style="width: 24%">Status</th>
+                      <th style="width: 20%">Earning</th>
+                      <th style="width: 10%"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                    <!-- Row 1 -->
+                    <tr data-status-type="completed">
+                      <td class="index-col">01</td>
+                      <td><span class="car-badge">6465</span></td>
+                      <td>
+                        <div class="driver-profile">
+                          <img
+                            class="driver-avatar"
+                            src="images/Ellipse 7.png"
+                            alt="Alex Noman"
+                          />
+                          Alex Noman
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-pill">
+                          <span class="status-dot dot-completed"></span>
+                          Completed
+                        </div>
+                      </td>
+                      <td class="earning-col">$ 35.44</td>
+                      <td>
+                        <button
+                          class="details-btn"
+                          onclick="
+                            openDetails(
+                              'Alex Noman',
+                              '6465',
+                              '$ 35.44',
+                              'Completed',
+                              'https://unsplash.com',
+                            )
+                          "
+                        >
+                          Details
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- Row 2 -->
+                    <tr data-status-type="pending">
+                      <td class="index-col">02</td>
+                      <td><span class="car-badge">5665</span></td>
+                      <td>
+                        <div class="driver-profile">
+                          <img
+                            class="driver-avatar"
+                            src="images/Ellipse 7 (1).png"
+                            alt="Razib Rahman"
+                          />
+                          Razib Rahman
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-pill">
+                          <span class="status-dot dot-pending"></span> Pending
+                        </div>
+                      </td>
+                      <td class="earning-col">$ 0.00</td>
+                      <td>
+                        <button
+                          class="details-btn"
+                          onclick="
+                            openDetails(
+                              'Razib Rahman',
+                              '5665',
+                              '$ 0.00',
+                              'Pending',
+                              'https://unsplash.com',
+                            )
+                          "
+                        >
+                          Details
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- Row 3 -->
+                    <tr data-status-type="inroute">
+                      <td class="index-col">03</td>
+                      <td><span class="car-badge">1755</span></td>
+                      <td>
+                        <div class="driver-profile">
+                          <img
+                            class="driver-avatar"
+                            src="images/Ellipse 7 (2).png"
+                            alt="Luke Norton"
+                          />
+                          Luke Norton
+                        </div>
+                      </td>
+                      <td>
+                        <div class="status-pill">
+                          <span class="status-dot dot-inroute"></span> In route
+                        </div>
+                      </td>
+                      <td class="earning-col">$ 23.50</td>
+                      <td>
+                        <button
+                          class="details-btn"
+                          onclick="
+                            openDetails(
+                              'Luke Norton',
+                              '1755',
+                              '$ 23.50',
+                              'In route',
+                              'https://unsplash.com',
+                            )
+                          "
+                        >
+                          Details
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="date_section">
+            <div class="availability-card">
+              <h2 class="widget-title">Car Availability</h2>
+
+              <div class="form-row">
+                <!-- Selector 1: Car Selection Dropdown Mock -->
+                <div class="select-wrapper">
+                  <div class="input-control" id="carPicker">
+                    <img src="images/bx_car.svg" alt="" />
+                    <span class="input-placeholder" id="carDisplayValue"
+                      >Car number</span
+                    >
+                    <svg class="icon-svg chevron" viewBox="0 0 24 24">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Double Input: Combined Date and Time System Layout -->
+                <div class="combined-picker-group">
+                  <!-- Sub-component 1: Date Trigger Field -->
+                  <div
+                    class="sub-picker"
+                    id="dateToggleField"
+                    style="position: relative"
+                  >
+                    <img src="images/calendar-check.svg" alt="" />
+                    <span id="dateDisplayValue" class="input-placeholder"
+                      >Nov 20, 2022</span
+                    >
+                    <!-- Dynamic Floating Calendar Dropdown Menu View -->
+                    <div
+                      class="dropdown-panel calendar-dropdown"
+                      id="calendarMenu"
+                    >
+                      <div class="calendar-header">
+                        <button class="calendar-nav-btn" id="prevMonthBtn">
+                          ←
+                        </button>
+                        <span
+                          class="calendar-month-title"
+                          id="calendarMonthTitle"
+                          >November 2022</span
+                        >
+                        <button class="calendar-nav-btn" id="nextMonthBtn">
+                          →
+                        </button>
+                      </div>
+                      <div class="calendar-weekdays">
+                        <div>Su</div>
+                        <div>Mo</div>
+                        <div>Tu</div>
+                        <div>We</div>
+                        <div>Th</div>
+                        <div>Fr</div>
+                        <div>Sa</div>
+                      </div>
+                      <div class="calendar-grid" id="calendarDaysGrid"></div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-component 2: Time Picker Field -->
+                  <div
+                    class="sub-picker"
+                    id="timePickerField"
+                    style="position: relative"
+                  >
+                    <img src="images/Clock2.svg" alt="" />
+                    <span id="timeDisplayValue" class="input-placeholder"
+                      >10 AM</span
+                    >
+                    <svg class="icon-svg chevron" viewBox="0 0 24 24">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                    <div class="dropdown-panel time-dropdown" id="timeMenu">
+                      <!-- Loaded dynamically by JS -->
+                    </div>
+                  </div>
+                  <!-- NEW: Dynamic Floating Time Picker Menu View -->
+                </div>
+
+                <!-- Execution Action Submission Button -->
+                <button class="submit-btn" id="checkBtn">Check</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="sc.js"></script>
+  </body>
+</html>
